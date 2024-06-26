@@ -57,7 +57,7 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 app = ApplicationBuilder().token(f"{telegram_token}").build()
 
-app.add_handler(CommandHandler(callback=start))
+app.add_handler(CommandHandler('start', start))
 
 # Обработчик для кнопок
 app.add_handler(CallbackQueryHandler(button))
