@@ -7,15 +7,17 @@ from telegram.ext import (
     MessageHandler,
     filters)
 
+from transformers import pipeline
+
+classifier = pipeline("zero-shot-classification", model="MoritzLaurer/mDeBERTa-v3-base-mnli-xnli")
+candidate_labels = ["politics", "economy", "entertainment", "environment"]
+
 from dotenv import load_dotenv
 import os
-import random
 
 load_dotenv()
 
 telegram_token = os.getenv("TELEGRAM_TOKEN")
-polit_topics = ['Политика', 'Не политика']
-
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
@@ -35,8 +37,12 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.message.text and not update.message.text.startswith('/'):
         if context.user_data.get('ready_for_classification', False):
-            polit_topic = random.choice(polit_topics)
-            await update.message.reply_text(f'Классификация: {polit_topic}')
+            sequence_to_classify = update.message.text
+            polit_topic = classifier(sequence_to_classify, candidate_labels, multi_label=False)
+            index_of_politics = polit_topic['labels'].index('politics')
+            politics = 'политика' if index_of_politics == 0 else 'не политика'
+            politics_score = polit_topic['scores'][index_of_politics]
+            await update.message.reply_text(f'Это {politics}. Политика с вероятностью {politics_score*100:.2f}%')
             # После отправки классификации устанавливаем флаг готовности к новой классификации
             context.user_data['ready_for_classification'] = False
 
