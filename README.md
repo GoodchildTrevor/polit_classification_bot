@@ -10,7 +10,7 @@
 
 ```sh
 git clone https://github.com/GoodchildTrevor/polit_classification_bot.git
-
+```
 ### **2. Установка зависимостей**
 
 ```sh
