@@ -34,7 +34,7 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await query.edit_message_text(text="Теперь введите текст для классификации.")
 
 
-async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def classification(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.message.text and not update.message.text.startswith('/'):
         if context.user_data.get('ready_for_classification', False):
             sequence_to_classify = update.message.text
@@ -69,6 +69,6 @@ app.add_handler(CommandHandler('start', start))
 app.add_handler(CallbackQueryHandler(button))
 
 # Обработчик для всех текстовых сообщений
-app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, callback=echo))
+app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, callback=classification))
 
 app.run_polling()
