@@ -22,7 +22,7 @@ pip install -r requirements.txt
 TELEGRAM_TOKEN=your_telegram_token_here
 ```
 Использование токена в коде
-```sh
+```python
 from dotenv import load_dotenv
 import os
 
