@@ -9,11 +9,15 @@ from telegram.ext import (
 
 from transformers import pipeline
 
-classifier = pipeline("zero-shot-classification", model="MoritzLaurer/mDeBERTa-v3-base-mnli-xnli")
-candidate_labels = ["politics", "economy", "entertainment", "environment"]
-
 from dotenv import load_dotenv
 import os
+
+import warnings
+
+warnings.filterwarnings('ignore')
+
+classifier = pipeline("zero-shot-classification", model="MoritzLaurer/mDeBERTa-v3-base-mnli-xnli")
+candidate_labels = ["politics", "economy", "entertainment", "environment"]
 
 load_dotenv()
 
