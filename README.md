@@ -15,16 +15,14 @@ git clone https://github.com/GoodchildTrevor/polit_classification_bot.git
 
 ```sh
 pip install -r requirements.txt
-```sh
+```
 ### **3. Установка зависимостей**
 Создайте файл .env в корневом каталоге и добавьте ваш Telegram API токен:
 ```sh
 TELEGRAM_TOKEN=your_telegram_token_here
-```sh
+```
 ### **4. Запуск**
 Запустите бота с помощью следующей команды:
-```sh
-TELEGRAM_TOKEN=your_telegram_token_here
 ```sh
 python bot.py
 ```
